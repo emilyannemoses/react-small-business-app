@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import {
   Table,
   TableBody,
@@ -8,7 +9,6 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Container,
 } from '@mui/material';
 import address from './img/address.png';
 import desc from './img/desc.png';
@@ -16,9 +16,18 @@ import hours from './img/hours.png';
 import name from './img/name.png';
 import deleteimg from './img/delete.png';
 import { LoginContext } from '../App';
+import { deleteListing } from '../redux/actions';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export function LoggedInListings({ pizzaPlaces, handleDelete }) {
+const mapStateToProps = (state) => ({
+  pizzaPlaces: state.listings.listings,
+});
+
+const mapDispatchToProps = {
+  deleteListing: deleteListing,
+};
+
+export function LoggedInListings({ pizzaPlaces, deleteListing }) {
   const { loggedIn } = useContext(LoginContext);
 
   return (
@@ -75,14 +84,16 @@ export function LoggedInListings({ pizzaPlaces, handleDelete }) {
               <TableCell align='right'>{pizzaPlace.description}</TableCell>
               <TableCell align='right'>{pizzaPlace.address}</TableCell>
               <TableCell align='right'>{pizzaPlace.hours}</TableCell>
-              <TableCell align='center'>
-                <DeleteIcon
-                  aria-label='delete'
-                  onClick={() => handleDelete(index)}
-                >
-                  <DeleteIcon />
-                </DeleteIcon>
-              </TableCell>
+              {loggedIn && (
+                <TableCell align='center'>
+                  <DeleteIcon
+                    aria-label='delete'
+                    onClick={() => deleteListing(index)}
+                  >
+                    <DeleteIcon />
+                  </DeleteIcon>
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>
@@ -90,6 +101,11 @@ export function LoggedInListings({ pizzaPlaces, handleDelete }) {
     </TableContainer>
   );
 }
+
+const LoggedInListingsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoggedInListings);
 
 export function LoggedOutListings({ pizzaPlaces }) {
   return (
@@ -144,3 +160,8 @@ export function LoggedOutListings({ pizzaPlaces }) {
     </TableContainer>
   );
 }
+
+const LoggedOutListingsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoggedOutListings);
