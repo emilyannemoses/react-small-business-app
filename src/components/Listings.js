@@ -75,16 +75,14 @@ export function LoggedInListings({ pizzaPlaces, handleDelete }) {
               <TableCell align='right'>{pizzaPlace.description}</TableCell>
               <TableCell align='right'>{pizzaPlace.address}</TableCell>
               <TableCell align='right'>{pizzaPlace.hours}</TableCell>
-              {loggedIn && (
-                <TableCell align='center'>
-                  <DeleteIcon
-                    aria-label='delete'
-                    onClick={() => handleDelete(index)}
-                  >
-                    <DeleteIcon />
-                  </DeleteIcon>
-                </TableCell>
-              )}
+              <TableCell align='center'>
+                <DeleteIcon
+                  aria-label='delete'
+                  onClick={() => handleDelete(index)}
+                >
+                  <DeleteIcon />
+                </DeleteIcon>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

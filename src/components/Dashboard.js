@@ -31,7 +31,6 @@ function Dashboard({ pizzaPlaces }) {
             element={<LoggedOutListings pizzaPlaces={pizzaPlaces} />}
           />
         )}
-        // ...
       </Routes>
     </div>
   );
