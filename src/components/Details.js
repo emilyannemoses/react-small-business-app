@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
-const Details = ({ pizzaPlace }) => {
+function Details({ pizzaPlaces }) {
+  const { index } = useParams();
+  const pizzaPlace = pizzaPlaces[index];
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -27,6 +29,6 @@ const Details = ({ pizzaPlace }) => {
       <div style={{ height: '400px', width: '100%' }} ref={mapRef} />
     </div>
   );
-};
+}
 
 export default Details;

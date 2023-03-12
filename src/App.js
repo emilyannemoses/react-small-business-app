@@ -6,12 +6,12 @@ import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 
 export const LoginContext = createContext({
-  loggedIn: false,
+  loggedIn: true,
   setLoggedIn: () => {},
 });
 
 function App(props) {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const pizzaPlaces = [
     {
       businessName: 'Pinthouse Pizza',
@@ -43,7 +43,7 @@ function App(props) {
   return (
     <BrowserRouter>
       <LoginContext.Provider value={{ loggedIn, setLoggedIn }}>
-        {loggedIn ? (
+        {!loggedIn ? (
           <div className='App'>
             <ResponsiveAppBar />
             <header className='App-header'>
