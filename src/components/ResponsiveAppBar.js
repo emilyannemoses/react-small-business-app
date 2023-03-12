@@ -11,7 +11,11 @@ function ResponsiveAppBar() {
     <AppBar position='static' style={{ background: '#283544' }}>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <img src={pizzafinder} style={{ width: 200, height: 50 }} />
+          <img
+            src={pizzafinder}
+            alt='pizzaFinderLogo'
+            style={{ width: 200, height: 50 }}
+          />
           <div style={{ marginLeft: 'auto' }}>
             <Link to='/login'>
               <img src={login} alt='login' style={{ width: 160, height: 40 }} />

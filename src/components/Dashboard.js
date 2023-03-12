@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { LoggedInListings, LoggedOutListings } from './Listings';
-import Details from './Details';
-import Login from './Login';
+import {
+  ConnectedLoggedInListings,
+  ConnectedLoggedOutListings,
+} from './Listings';
 import { LoginContext } from '../App';
 
 function Dashboard({ pizzaPlaces }) {
@@ -19,7 +20,7 @@ function Dashboard({ pizzaPlaces }) {
           <Route
             path='/'
             element={
-              <LoggedInListings
+              <ConnectedLoggedInListings
                 pizzaPlaces={pizzaPlaces}
                 handleDelete={handleDelete}
               />
@@ -28,7 +29,7 @@ function Dashboard({ pizzaPlaces }) {
         ) : (
           <Route
             path='/'
-            element={<LoggedOutListings pizzaPlaces={pizzaPlaces} />}
+            element={<ConnectedLoggedOutListings pizzaPlaces={pizzaPlaces} />}
           />
         )}
       </Routes>

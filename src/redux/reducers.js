@@ -1,18 +1,14 @@
 import { combineReducers } from 'redux';
-import { ADD_LISTING, DELETE_LISTING } from './actions';
+import { initialState } from './listings';
 
-const initialState = {
-  listings: [],
-};
-
-function listingsReducer(state = initialState, action) {
+export function listingsReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_LISTING:
+    case 'ADD_LISTING':
       return {
         ...state,
         listings: [...state.listings, action.payload],
       };
-    case DELETE_LISTING:
+    case 'DELETE_LISTING':
       return {
         ...state,
         listings: state.listings.filter(

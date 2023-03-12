@@ -17,17 +17,20 @@ import name from './img/name.png';
 import deleteimg from './img/delete.png';
 import { LoginContext } from '../App';
 import { deleteListing } from '../redux/actions';
+import { initialState } from '../redux/listings';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const mapStateToProps = (state) => ({
-  pizzaPlaces: state.listings.listings,
-});
+const mapStateToProps = (state) => {
+  return {
+    listings: initialState.listings,
+  };
+};
 
 const mapDispatchToProps = {
   deleteListing: deleteListing,
 };
 
-export function LoggedInListings({ pizzaPlaces, deleteListing }) {
+function LoggedInListings({ listings, deleteListing }) {
   const { loggedIn } = useContext(LoginContext);
 
   return (
@@ -71,19 +74,19 @@ export function LoggedInListings({ pizzaPlaces, deleteListing }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {pizzaPlaces.map((pizzaPlace, index) => (
+          {listings.map((listing, index) => (
             <TableRow key={index}>
               <TableCell>
                 <Link
                   to={`/details/${index}`}
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >
-                  {pizzaPlace.businessName}
+                  {listing.businessName}
                 </Link>
               </TableCell>
-              <TableCell align='right'>{pizzaPlace.description}</TableCell>
-              <TableCell align='right'>{pizzaPlace.address}</TableCell>
-              <TableCell align='right'>{pizzaPlace.hours}</TableCell>
+              <TableCell align='right'>{listing.description}</TableCell>
+              <TableCell align='right'>{listing.address}</TableCell>
+              <TableCell align='right'>{listing.hours}</TableCell>
               {loggedIn && (
                 <TableCell align='center'>
                   <DeleteIcon
@@ -102,12 +105,7 @@ export function LoggedInListings({ pizzaPlaces, deleteListing }) {
   );
 }
 
-const LoggedInListingsContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoggedInListings);
-
-export function LoggedOutListings({ pizzaPlaces }) {
+function LoggedOutListings({ listings }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label='simple table'>
@@ -140,19 +138,19 @@ export function LoggedOutListings({ pizzaPlaces }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {pizzaPlaces.map((pizzaPlace, index) => (
+          {listings.map((listing, index) => (
             <TableRow key={index}>
               <TableCell>
                 <Link
                   to={`/details/${index}`}
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >
-                  {pizzaPlace.businessName}
+                  {listing.businessName}
                 </Link>
               </TableCell>
-              <TableCell align='right'>{pizzaPlace.description}</TableCell>
-              <TableCell align='right'>{pizzaPlace.address}</TableCell>
-              <TableCell align='right'>{pizzaPlace.hours}</TableCell>
+              <TableCell align='right'>{listing.description}</TableCell>
+              <TableCell align='right'>{listing.address}</TableCell>
+              <TableCell align='right'>{listing.hours}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -161,7 +159,10 @@ export function LoggedOutListings({ pizzaPlaces }) {
   );
 }
 
-const LoggedOutListingsContainer = connect(
+const ConnectedLoggedInListings = connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoggedOutListings);
+)(LoggedInListings);
+const ConnectedLoggedOutListings = connect(mapStateToProps)(LoggedOutListings);
+
+export { ConnectedLoggedInListings, ConnectedLoggedOutListings };
