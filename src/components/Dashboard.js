@@ -1,40 +1,42 @@
 import React, { useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import {
   ConnectedLoggedInListings,
   ConnectedLoggedOutListings,
 } from './Listings';
 import { LoginContext } from '../App';
+import Details from './Details';
 
-function Dashboard({ pizzaPlaces }) {
-  const { loggedIn } = useContext(LoginContext);
-
-  const handleDelete = (index) => {
-    // Delete the pizza place with the given index
+const mapStateToProps = (state) => {
+  return {
+    listings: state.listings.listings,
   };
+};
+
+function Dashboard({ listings, handleDelete }) {
+  const { loggedIn } = useContext(LoginContext);
 
   return (
     <div className='dashwrapper'>
       <Routes>
-        {loggedIn ? (
-          <Route
-            path='/'
-            element={
+        <Route
+          path='/'
+          element={
+            loggedIn ? (
               <ConnectedLoggedInListings
-                pizzaPlaces={pizzaPlaces}
+                listings={listings}
                 handleDelete={handleDelete}
               />
-            }
-          />
-        ) : (
-          <Route
-            path='/'
-            element={<ConnectedLoggedOutListings pizzaPlaces={pizzaPlaces} />}
-          />
-        )}
+            ) : (
+              <ConnectedLoggedOutListings listings={listings} />
+            )
+          }
+        />
+        <Route path='/details/:index' element={<Details />} />
       </Routes>
     </div>
   );
 }
 
-export default Dashboard;
+export default connect(mapStateToProps)(Dashboard);

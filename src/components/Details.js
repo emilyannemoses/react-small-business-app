@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function Details({ pizzaPlaces }) {
+function Details({ listings }) {
   const { index } = useParams();
-  const pizzaPlace = pizzaPlaces[index];
+  const pizzaPlace = listings[index];
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -31,4 +32,12 @@ function Details({ pizzaPlaces }) {
   );
 }
 
-export default Details;
+const mapStateToProps = (state) => {
+  return {
+    listings: state.listings.listings,
+  };
+};
+
+const ConnectedDetails = connect(mapStateToProps)(Details);
+
+export default ConnectedDetails;
