@@ -36,6 +36,7 @@ export default function Login() {
                 id='outlined-basic'
                 label='Username'
                 variant='outlined'
+                sx={{ m: 1 }}
               />
             </div>
             <div className='individualinput'>
@@ -43,6 +44,7 @@ export default function Login() {
                 id='outlined-basic'
                 label='Password'
                 variant='outlined'
+                sx={{ m: 1 }}
               />
             </div>
           </div>
