@@ -16,13 +16,12 @@ import hours from './img/hours.png';
 import name from './img/name.png';
 import deleteimg from './img/delete.png';
 import { LoginContext } from '../App';
-import { deleteListing } from '../redux/actions';
-import { initialState } from '../redux/listings';
+import { deleteListing } from '../redux/actions'
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const mapStateToProps = (state) => {
   return {
-    listings: initialState.listings,
+    listings: state.listings.listings,
   };
 };
 

@@ -11,15 +11,25 @@ function AddListing({ addListing }) {
   const [description, setDescription] = useState('');
   const [address, setAddress] = useState('');
   const [hours, setHours] = useState('');
+  const [lat, setLat] = useState();
+  const [lng, setLng] = useState();
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newListing = { businessName, description, address, hours };
+    const newListing = { businessName, 
+                         description, 
+                         address, 
+                         hours, 
+                         lat: parseFloat(lat),
+                         lng: parseFloat(lng) };
     addListing(newListing);
     setBusinessName('');
     setDescription('');
     setAddress('');
     setHours('');
+    setLat();
+    setLng();
   };
 
   return (
@@ -62,6 +72,26 @@ function AddListing({ addListing }) {
             type='text'
             value={hours}
             onChange={(e) => setHours(e.target.value)}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Latitude:
+          <input
+            type='text'
+            value={lat}
+            onChange={(e) => setLat(e.target.value)}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Longitude:
+          <input
+            type='text'
+            value={lng}
+            onChange={(e) => setLng(e.target.value)}
             required
           />
         </label>
